@@ -1,0 +1,32 @@
+{
+  "name": "aistudio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^2.4.6",
+    "framer-motion": "^11.3.17",
+    "next": "14.2.5",
+    "node-appwrite": "^13.0.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "sonner": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

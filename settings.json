@@ -1,0 +1,25 @@
+{
+    "navigation": [
+        { "name": "Home", "url": "/" },
+        { "name": "Blog", "url": "https://www.ranksper.com/blog" },
+        { "name": "Pricing", "url": "/pricing" },
+        {
+            "name": "Features",
+            "submenu": [
+                { "name": "Tools", "url": "/tools", "description": "Collection of tools for content creation", "icon": "flash" },
+                { "name": "Prompts", "url": "/prompts", "description": "Collection of prompts for best results", "icon": "server" }
+            ]
+        }
+    ],
+    "roles": [
+        { "name": "admin", "description": "Admin has full access to the website." },
+        { "name": "contributor", "description": "Editor has access to the content of the website." },
+        { "name": "user", "description": "User has limited access to the website." }
+    ],
+    "access": [
+        { "name": "Free", "description": "Users without subscription" },
+        { "name": "Paid", "description": "Users with subscription" }
+    ],
+    "models": [{ "name": "Gemini" }, { "name": "ChatGPT" }, { "name": "Midjourney" }],
+    "categories": [{ "name": "Writing" }, { "name": "SEO" }, { "name": "Marketing" }, { "name": "Youtube" }, { "name": "Twitter" }, { "name": "Facebook" }, { "name": "Instagram" }]
+}
