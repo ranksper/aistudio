@@ -16,4 +16,4 @@ const admin = new Client()
 
 export const account = new Account(client);
 export const appwrite = new Account(admin);
-export const databases = new Databases(admin);
+export const databases = new Databases(client);

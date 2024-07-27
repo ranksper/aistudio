@@ -3,8 +3,11 @@
 import { Button, Checkbox, CheckboxGroup, Input, Radio, RadioGroup, Textarea, cn } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { useAuthContext } from "@/context/AuthContext";
+import { createPrompt } from "@/lib/appwrite/database/prompts";
+import { validatePrompt } from "@/lib/validation/prompt";
 
 import Settings from "@/../../settings.json";
 
@@ -48,7 +51,6 @@ const PromptCreatePage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [prompt, setPrompt] = useState("");
-    const [slug, setSlug] = useState("");
     const [access, setAccess] = useState("Free");
     const [models, setModels] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
@@ -57,9 +59,26 @@ const PromptCreatePage = () => {
         if (!(user?.prefs?.role === Settings.roles[0].name || user?.prefs?.role === Settings.roles[1].name) && !loading) {
             router.back();
         }
-    }, [user, loading]);
+    }, [user, loading, router]);
 
-    const handleSubmit = async (event: React.FormEvent) => {};
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const data = { title, description, prompt, access, models, categories, user: user?.$id as string };
+
+        const isValid = validatePrompt(data);
+
+        if (isValid) {
+            const result: any = await createPrompt(data);
+
+            if (result.$id) {
+                toast.success("Prompt created successfully");
+                router.push(`/prompts/${result.$id}`);
+            } else {
+                toast.error("An error occurred while creating the prompt");
+            }
+        }
+    };
 
     return (
         <div className="container m-auto max-w-xl px-4 py-10">
@@ -68,7 +87,6 @@ const PromptCreatePage = () => {
                 <Input label="Title" size="md" defaultValue={title} onValueChange={(value) => setTitle(value)} maxLength={60} isRequired />
                 <Input label="Description" size="md" defaultValue={description} onValueChange={(value) => setDescription(value)} maxLength={160} isRequired />
                 <Textarea label="Prompt" size="md" defaultValue={prompt} onValueChange={(value) => setPrompt(value)} classNames={{ inputWrapper: "h-auto" }} isRequired />
-                <Input label="URL Slug" size="md" defaultValue={slug} onValueChange={(value) => setSlug(value)} maxLength={120} isRequired />
 
                 <RadioGroup orientation="horizontal" label="Access" className="mt-2" value={access} onValueChange={setAccess}>
                     {Settings.access.map((access) => (

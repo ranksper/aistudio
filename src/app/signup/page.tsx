@@ -20,7 +20,7 @@ const SignUpPage = () => {
         if (!loading && user?.$id) {
             router.push("/");
         }
-    }, [user]);
+    }, [user, loading, router]);
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,7 +40,7 @@ const SignUpPage = () => {
                 </Button>
             </form>
             <p className="my-8 font-medium opacity-80">
-                Already have an account? <Link href="/signin">Sign In</Link>
+                {"Already have an account?"} <Link href="/signin">Sign In</Link>
             </p>
         </div>
     );

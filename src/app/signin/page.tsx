@@ -18,7 +18,7 @@ const SignInPage = () => {
         if (!loading && user?.$id) {
             router.push("/");
         }
-    }, [user]);
+    }, [user, loading, router]);
 
     const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,7 +36,7 @@ const SignInPage = () => {
                 </Button>
             </form>
             <p className="my-8 font-medium opacity-80">
-                Don't have an account? <Link href="/signup">Sign Up</Link>
+                {"Don't have an account?"} <Link href="/signup">Sign Up</Link>
             </p>
         </div>
     );

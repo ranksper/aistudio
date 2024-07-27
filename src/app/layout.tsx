@@ -24,11 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="icon" type="image/png" sizes="16x16" href={"/assets/favicons/favicon-16x16.png"} />
                 <link rel="manifest" href={"/assets/favicons/site.webmanifest"} />
             </head>
-            <body className={`h-screen bg-white dark:bg-slate-900 ${inter.className}`}>
+            <body className={`min-h-screen bg-white dark:bg-slate-900 ${inter.className}`}>
                 <Providers>
                     <Navigation />
-                    <main className="mx-auto w-full max-w-screen-2xl grow">{children}</main>
-                    <Toaster closeButton richColors theme="system" />
+                    <main className="mx-auto h-full w-full max-w-screen-2xl grow">{children}</main>
+                    <Toaster richColors theme="system" toastOptions={{ className: "shadow" }} />
                 </Providers>
             </body>
         </html>
