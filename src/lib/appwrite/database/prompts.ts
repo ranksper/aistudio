@@ -1,21 +1,45 @@
 "use server";
 
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 
-import { databases } from "@/lib/appwrite/config";
-import { Prompt } from "@/types/prompt";
-import { cookies } from "next/headers";
+import { createSessionClient } from "@/lib/appwrite/config";
+import { CreatePrompt, Prompt, PromptList } from "@/types/prompt";
 
-export async function createPrompt(data: Prompt) {
+const databaseId = process.env.NEXT_APPWRITE_DATABASE as string;
+const collectionId = process.env.NEXT_APPWRITE_PROMPTS as string;
+
+export async function createPrompt(data: CreatePrompt) {
+    const { databases } = await createSessionClient();
+
     try {
-        const databaseId = process.env.NEXT_APPWRITE_DATABASE as string;
-        const collectionId = process.env.NEXT_APPWRITE_PROMPTS as string;
-
-        databases.client.setSession(cookies().get("session")?.value as string);
         const result = await databases.createDocument(databaseId, collectionId, ID.unique(), data);
-
         return result;
     } catch (error) {
         return error;
+    }
+}
+
+export async function getPrompt(id: string) {
+    const { databases } = await createSessionClient();
+
+    try {
+        const result = await databases.getDocument<Prompt>(databaseId, collectionId, id);
+        return result;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function loadPrompts<PromptList>(limit: number, offset?: number) {
+    const { databases } = await createSessionClient();
+
+    try {
+        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"])]);
+        const result = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), Query.equal("status", "published")]);
+
+        return { total: count.total, result: result.documents };
+    } catch (error) {
+        console.error(error);
+        return { total: 0, result: [] };
     }
 }

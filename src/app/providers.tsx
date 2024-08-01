@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export function Providers({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     return (
-        <NextUIProvider navigate={router.push} className="flex h-full flex-col">
+        <NextUIProvider navigate={router.push} className="flex h-full flex-col overflow-y-auto">
             <AuthProvider>{children}</AuthProvider>
         </NextUIProvider>
     );

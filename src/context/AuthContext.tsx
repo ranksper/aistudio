@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { currentUser, signUpUser, signInUser, signOutUser } from "@/lib/appwrite/auth";
 
 import { SignIn, SignUp, User } from "@/types/user";
+import { toast } from "sonner";
 
 type AuthContextState = {
     user: User | null;
@@ -48,10 +49,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
 
         try {
-            const result = await signUpUser(data);
+            const result: any = await signUpUser(data);
+
+            if (result.status === "error") {
+                throw result;
+            }
+
             const session = await currentUser();
+
             setUser(session as User | null);
-        } catch (error) {
+        } catch (error: any) {
+            if (error.code === 409) {
+                toast.error("Email already exists");
+            }
+
             setError(error as string);
             setUser(null);
         } finally {
@@ -63,11 +74,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
 
         try {
-            const result = await signInUser(data);
+            const result: any = await signInUser(data);
+
+            if (result.status === "error") {
+                throw result;
+            }
+
             const session = await currentUser();
 
             setUser(session as User | null);
-        } catch (error) {
+        } catch (error: any) {
+            if (error.code === 401) {
+                toast.error("Invalid email or password");
+            }
+
             setError(error as string);
             setUser(null);
         } finally {
@@ -79,9 +99,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
 
         try {
-            await signOutUser();
+            const result: any = await signOutUser();
+
+            if (result.status === "error") {
+                throw result;
+            }
+
             setUser(null);
         } catch (error) {
+            toast.error("Error signing out");
             setError(error as string);
         } finally {
             setLoading(false);

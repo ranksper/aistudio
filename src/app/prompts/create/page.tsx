@@ -50,7 +50,7 @@ const PromptCreatePage = () => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [prompt, setPrompt] = useState("");
+    const [content, setContent] = useState("");
     const [access, setAccess] = useState("Free");
     const [models, setModels] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
@@ -64,7 +64,7 @@ const PromptCreatePage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const data = { title, description, prompt, access, models, categories, user: user?.$id as string };
+        const data = { title, description, content, access, models, categories, user: user?.$id as string };
 
         const isValid = validatePrompt(data);
 
@@ -86,7 +86,7 @@ const PromptCreatePage = () => {
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                 <Input label="Title" size="md" defaultValue={title} onValueChange={(value) => setTitle(value)} maxLength={60} isRequired />
                 <Input label="Description" size="md" defaultValue={description} onValueChange={(value) => setDescription(value)} maxLength={160} isRequired />
-                <Textarea label="Prompt" size="md" defaultValue={prompt} onValueChange={(value) => setPrompt(value)} classNames={{ inputWrapper: "h-auto" }} isRequired />
+                <Textarea label="Prompt" size="md" defaultValue={content} onValueChange={(value) => setContent(value)} classNames={{ inputWrapper: "h-auto" }} isRequired />
 
                 <RadioGroup orientation="horizontal" label="Access" className="mt-2" value={access} onValueChange={setAccess}>
                     {Settings.access.map((access) => (
