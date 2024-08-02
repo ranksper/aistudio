@@ -23,13 +23,13 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
     const subscription = user ? await checkUserSubscription(user.email) : null;
     const agent = await userAgent({ headers: headers() });
 
-    if (data === null || data.status !== "published") {
+    if ((data === null || data.status !== "published") && (data?.user.$id !== user?.$id || user?.prefs.role !== "admin")) {
         notFound();
     }
 
     const generateContent = () => {
-        if (data.access === "premium") {
-            if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot) {
+        if (data?.access === "premium") {
+            if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot || data.user.$id === user?.$id || user?.prefs.role === "admin") {
                 return <p className="paywall text-base text-default-600 md:text-lg" dangerouslySetInnerHTML={{ __html: data.content.replace(/\n/g, "<br/>") }}></p>;
             } else {
                 return (
@@ -50,13 +50,13 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
                 );
             }
         } else {
-            return <p className="text-base text-default-600 md:text-lg" dangerouslySetInnerHTML={{ __html: data.content.replace(/\n/g, "<br/>") }}></p>;
+            return data && <p className="text-base text-default-600 md:text-lg" dangerouslySetInnerHTML={{ __html: data.content.replace(/\n/g, "<br/>") }}></p>;
         }
     };
 
     const generateButtons = () => {
-        if (data.access === "premium") {
-            if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot) {
+        if (data?.access === "premium") {
+            if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot || data.user.$id === user?.$id || user?.prefs.role === "admin") {
                 return (
                     <CopyButton text={data.content} size="sm" color="primary" variant="flat" className="px-2">
                         <CopyIcon size={18} /> Copy
@@ -67,66 +67,70 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
             }
         } else {
             return (
-                <CopyButton text={data.content} size="sm" color="default" variant="flat" className="px-2 text-default-700">
-                    <CopyIcon size={18} /> Copy
-                </CopyButton>
+                data && (
+                    <CopyButton text={data.content} size="sm" color="default" variant="flat" className="px-2 text-default-700">
+                        <CopyIcon size={18} /> Copy
+                    </CopyButton>
+                )
             );
         }
     };
 
     return (
-        <div className="m-4 flex flex-col gap-6 md:m-10 md:flex-row">
-            <Card classNames={{ base: "shadow-sm border border-divider min-w-80 w-full md:w-80 h-fit" }}>
-                <CardHeader className="gap-4">
-                    <Avatar color="primary" size="lg" name={data.user.name} />
-                    <div>
-                        <h3 className="text-lg font-semibold leading-6 text-default-700">{data.user.name}</h3>
-                        <p className="text-sm leading-5 text-default-400">Prompt Engineer</p>
-                    </div>
-                    <Button size="sm" color="primary" className="ml-auto" as={Link} href={`/author/${data.user.username}`}>
-                        Profile
-                    </Button>
-                </CardHeader>
-            </Card>
+        data && (
+            <div className="m-4 flex flex-col gap-6 md:m-10 md:flex-row">
+                <Card classNames={{ base: "shadow-sm border border-divider min-w-80 w-full md:w-80 h-fit" }}>
+                    <CardHeader className="gap-4">
+                        <Avatar color="primary" size="lg" name={data.user.name} />
+                        <div>
+                            <h3 className="text-lg font-semibold leading-6 text-default-700">{data.user.name}</h3>
+                            <p className="text-sm leading-5 text-default-400">Prompt Engineer</p>
+                        </div>
+                        <Button size="sm" color="primary" className="ml-auto" as={Link} href={`/author/${data.user.username}`}>
+                            Profile
+                        </Button>
+                    </CardHeader>
+                </Card>
 
-            <Card classNames={{ base: "grow shadow-sm border border-divider px-3 py-2" }}>
-                <CardHeader className="flex-col items-start">
-                    <h1 className="text-lg font-semibold text-default-700 md:text-xl">{data.title}</h1>
-                    <p className="text-sm text-default-500 md:text-base">{data.description}</p>
-                </CardHeader>
-                <Divider />
-                <CardBody>{generateContent()}</CardBody>
-                <Divider />
-                <CardFooter className="mt-1 gap-2">
-                    {generateButtons()}
-                    <FavoriteButton data={data} size="sm" color={"default"} variant="flat" className="px-2 text-default-700">
-                        <HeartIcon size={18} /> Favorite
-                    </FavoriteButton>
-                </CardFooter>
-            </Card>
+                <Card classNames={{ base: "grow shadow-sm border border-divider px-3 py-2" }}>
+                    <CardHeader className="flex-col items-start">
+                        <h1 className="text-lg font-semibold text-default-700 md:text-xl">{data.title}</h1>
+                        <p className="text-sm text-default-500 md:text-base">{data.description}</p>
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>{generateContent()}</CardBody>
+                    <Divider />
+                    <CardFooter className="mt-1 gap-2">
+                        {generateButtons()}
+                        <FavoriteButton data={data} size="sm" color={"default"} variant="flat" className="px-2 text-default-700">
+                            <HeartIcon size={18} /> Favorite
+                        </FavoriteButton>
+                    </CardFooter>
+                </Card>
 
-            <Script id="paywall-schema" type="application/ld+json">
-                {JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "Article",
-                    headline: data.title,
-                    description: data.description,
-                    datePublished: data.$createdAt,
-                    dateModified: data.$updatedAt,
-                    author: {
-                        "@type": "Person",
-                        name: data.user.name,
-                        url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/author/${data.user.username}`,
-                    },
-                    isAccessibleForFree: data.access === "Free",
-                    hasPart: {
-                        "@type": "WebPageElement",
+                <Script id="paywall-schema" type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        headline: data.title,
+                        description: data.description,
+                        datePublished: data.$createdAt,
+                        dateModified: data.$updatedAt,
+                        author: {
+                            "@type": "Person",
+                            name: data.user.name,
+                            url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/author/${data.user.username}`,
+                        },
                         isAccessibleForFree: data.access === "Free",
-                        cssSelector: ".paywall",
-                    },
-                })}
-            </Script>
-        </div>
+                        hasPart: {
+                            "@type": "WebPageElement",
+                            isAccessibleForFree: data.access === "Free",
+                            cssSelector: ".paywall",
+                        },
+                    })}
+                </Script>
+            </div>
+        )
     );
 };
 

@@ -1,9 +1,10 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
+import { revalidateTag } from "next/cache";
 
 import { createSessionClient } from "@/lib/appwrite/config";
-import { CreatePrompt, Prompt, PromptList } from "@/types/prompt";
+import { CreatePrompt, Prompt, PromptList, UpdatePrompt } from "@/types/prompt";
 
 const databaseId = process.env.NEXT_APPWRITE_DATABASE as string;
 const collectionId = process.env.NEXT_APPWRITE_PROMPTS as string;
@@ -30,7 +31,7 @@ export async function getPrompt(id: string) {
     }
 }
 
-export async function loadPrompts<PromptList>(limit: number, offset?: number) {
+export async function loadPrompts(limit: number, offset?: number): Promise<PromptList> {
     const { databases } = await createSessionClient();
 
     try {
@@ -41,5 +42,30 @@ export async function loadPrompts<PromptList>(limit: number, offset?: number) {
     } catch (error) {
         console.error(error);
         return { total: 0, result: [] };
+    }
+}
+
+export async function getPromptsByStatus(status: string, limit: number, offset?: number): Promise<PromptList> {
+    const { databases } = await createSessionClient();
+
+    try {
+        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"]), Query.equal("status", status)]);
+        const result = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), Query.equal("status", status)]);
+
+        return { total: count.total, result: result.documents };
+    } catch (error) {
+        console.error(error);
+        return { total: 0, result: [] };
+    }
+}
+
+export async function updatePrompt(data: UpdatePrompt) {
+    const { databases } = await createSessionClient();
+
+    try {
+        const result = await databases.updateDocument(databaseId, collectionId, data.$id, data);
+        return result;
+    } catch (error) {
+        return null;
     }
 }
