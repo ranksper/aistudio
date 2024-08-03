@@ -31,6 +31,17 @@ export async function getPrompt(id: string) {
     }
 }
 
+export async function updatePrompt(data: UpdatePrompt) {
+    const { databases } = await createSessionClient();
+
+    try {
+        const result = await databases.updateDocument(databaseId, collectionId, data.$id, data);
+        return result;
+    } catch (error) {
+        return null;
+    }
+}
+
 export async function loadPrompts(limit: number, offset?: number): Promise<PromptList> {
     const { databases } = await createSessionClient();
 
@@ -56,16 +67,5 @@ export async function getPromptsByStatus(status: string, limit: number, offset?:
     } catch (error) {
         console.error(error);
         return { total: 0, result: [] };
-    }
-}
-
-export async function updatePrompt(data: UpdatePrompt) {
-    const { databases } = await createSessionClient();
-
-    try {
-        const result = await databases.updateDocument(databaseId, collectionId, data.$id, data);
-        return result;
-    } catch (error) {
-        return null;
     }
 }

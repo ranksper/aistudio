@@ -1,10 +1,9 @@
 import { Avatar, Card, CardBody, CardFooter, CardHeader, Chip, Divider } from "@nextui-org/react";
+import Link from "next/link";
 
 import { loadPrompts } from "@/lib/appwrite/database/prompts";
-import PaginationBar from "@/components/Pagination/PaginationBar";
 import { PromptList, Prompt } from "@/types/prompt";
-
-import Link from "next/link";
+import PaginationBar from "@/components/Pagination/PaginationBar";
 
 const PromptsPage = async ({ searchParams }: { searchParams: { page: string } }) => {
     const limit = 12;
@@ -26,9 +25,11 @@ const PromptsPage = async ({ searchParams }: { searchParams: { page: string } })
                 <div className="mb-8 w-full columns-1 gap-4 lg:columns-2 xl:columns-3 [&>div:not(:first-child)]:mt-4">
                     {result.map((prompt: Prompt) => (
                         <Card key={prompt.$id} className="rounded-xl border border-divider bg-slate-50 shadow-sm dark:bg-content1">
-                            <CardHeader className="gap-2">
-                                <Avatar name={prompt.user.name} alt={prompt.user.name} size="sm" />
-                                <p>{prompt.user.name}</p>
+                            <CardHeader>
+                                <Link href={`/author/${prompt.user.username}`} className="flex items-center gap-2">
+                                    <Avatar name={prompt.user.name} alt={prompt.user.name} size="sm" />
+                                    <p>{prompt.user.name}</p>
+                                </Link>
                                 <Chip size="sm" color={prompt.access === "Free" ? "success" : "danger"} radius="sm" variant="flat" className="ml-auto">
                                     {prompt.access}
                                 </Chip>

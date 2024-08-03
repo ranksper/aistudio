@@ -121,7 +121,7 @@ const Navigation = () => {
         if (role === Settings.roles[0].name) {
             return (
                 <DropdownSection className="m-0">
-                    <DropdownItem href={`/profile/${user?.prefs?.username}`}>Profile</DropdownItem>
+                    <DropdownItem href={`/author/${user?.prefs?.username}`}>Profile</DropdownItem>
                     <DropdownItem href="/prompts/create">Create</DropdownItem>
                     <DropdownItem href="/admin">Admin</DropdownItem>
                     <DropdownItem onPress={() => signOut()} color="secondary">
@@ -132,7 +132,7 @@ const Navigation = () => {
         } else if (role === Settings.roles[1].name) {
             return (
                 <DropdownSection className="m-0">
-                    <DropdownItem href={`/profile/${user?.prefs?.username}`}>Profile</DropdownItem>
+                    <DropdownItem href={`/author/${user?.prefs?.username}`}>Profile</DropdownItem>
                     <DropdownItem href="/prompts/create">Create</DropdownItem>
                     <DropdownItem href="/dashboard">Dashboard</DropdownItem>
                     <DropdownItem onPress={() => signOut()} color="secondary">
