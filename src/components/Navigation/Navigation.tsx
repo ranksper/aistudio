@@ -14,6 +14,7 @@ import MoonIcon from "@/components/Icons/Moon";
 import ChevronIcon from "@/components/Icons/Chevron";
 import FlashIcon from "@/components/Icons/Flash";
 import ServerIcon from "@/components/Icons/Server";
+import FireIcon from "@/components/Icons/Fire";
 
 const Navigation = () => {
     const router = useRouter();
@@ -24,6 +25,7 @@ const Navigation = () => {
     const icons: { [key: string]: JSX.Element } = {
         flash: <FlashIcon className="fill-foreground/80 group-hover:fill-white" size={32} />,
         server: <ServerIcon className="fill-foreground/80 group-hover:fill-white" size={30} />,
+        fire: <FireIcon className="fill-foreground/80 group-hover:fill-white" size={30} />,
     };
 
     useEffect(() => {
@@ -69,7 +71,7 @@ const Navigation = () => {
                         <DropdownMenu aria-label="features" classNames={{ list: "w-fit max-w-80" }} itemClasses={{ base: "gap-4" }}>
                             {item.submenu.map((subItem: any) => {
                                 return (
-                                    <DropdownItem key={subItem.name} as={Link} href={subItem.url} description={subItem.description} startContent={<div className="rounded-lg border border-divider p-1.5 transition-all group-hover:border-primary group-hover:bg-primary">{icons[subItem.icon]}</div>} variant="light" className="group text-foreground data-[hover=true]:text-foreground">
+                                    <DropdownItem key={subItem.name} as={Link} href={subItem.url} description={subItem.description} startContent={<div className="rounded-xl border border-divider p-1.5 transition-all group-hover:border-primary group-hover:bg-primary">{icons[subItem.icon]}</div>} variant="light" className="group text-foreground data-[hover=true]:text-foreground">
                                         {subItem.name}
                                     </DropdownItem>
                                 );

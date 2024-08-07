@@ -16,6 +16,12 @@ export type SignUp = {
     password: string;
 };
 
+export type SignUpResponse = {
+    status: "success" | "error";
+    code?: number;
+    message?: string;
+};
+
 export type SignIn = {
     email: string;
     password: string;

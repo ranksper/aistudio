@@ -53,6 +53,10 @@ export async function getUserByUsername(username: string) {
     try {
         const result = await databases.listDocuments(databaseId, collectionId, [Query.equal("username", username)]);
 
+        if (result.total === 0) {
+            return null;
+        }
+
         return result.documents[0];
     } catch (error) {
         return null;

@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`h-screen bg-white dark:bg-slate-900 ${inter.className}`}>
                 <Providers>
                     <Navigation />
-                    <main className="mx-auto h-full w-full max-w-screen-2xl grow">{children}</main>
+                    <main className="mx-auto flex h-full w-full max-w-screen-2xl grow flex-col">{children}</main>
                     <Toaster richColors theme="system" toastOptions={{ className: "shadow" }} />
                 </Providers>
             </body>

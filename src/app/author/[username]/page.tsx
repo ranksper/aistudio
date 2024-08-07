@@ -13,6 +13,8 @@ const AuthorPage = async ({ params }: { params: { username: string } }) => {
         notFound();
     }
 
+    const prompts = result.prompts.filter((prompt: Prompt) => prompt.status === "published");
+
     return (
         <div className="m-4 flex flex-col gap-6 md:m-10 md:flex-row">
             <Card classNames={{ base: "py-5 shadow-sm border border-divider min-w-80 w-full md:w-80 h-fit" }}>
@@ -36,7 +38,7 @@ const AuthorPage = async ({ params }: { params: { username: string } }) => {
             <div className="grow">
                 <div className="mb-8 w-full columns-1 gap-4 lg:columns-2 xl:columns-3 [&>div:not(:first-child)]:mt-4">
                     {result &&
-                        result.prompts.map((prompt: Prompt) => (
+                        prompts.map((prompt: Prompt) => (
                             <Card key={prompt.$id} className="rounded-xl border border-divider bg-slate-50 shadow-sm dark:bg-content1">
                                 <CardHeader className="gap-2">
                                     <Avatar name={result.name} alt={result.name} size="sm" />

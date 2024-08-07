@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
 
         try {
-            const result: any = await signUpUser(data);
+            const result = await signUpUser(data);
 
             if (result.status === "error") {
                 throw result;
@@ -61,6 +61,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } catch (error: any) {
             if (error.code === 409) {
                 toast.error("Email already exists");
+            }
+
+            if (error.code === 408) {
+                toast.error("Username already exists");
             }
 
             setError(error as string);

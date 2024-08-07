@@ -6,8 +6,8 @@
         {
             "name": "Features",
             "submenu": [
-                { "name": "Tools", "url": "/tools", "description": "Collection of tools for content creation", "icon": "flash" },
-                { "name": "Prompts", "url": "/prompts", "description": "Collection of prompts for best results", "icon": "server" }
+                { "name": "Prompts", "url": "/prompts", "description": "Collection of prompts for best results", "icon": "server" },
+                { "name": "Chatbots", "url": "/chatbots", "description": "Specialized chatbots for content creation", "icon": "fire" }
             ]
         }
     ],
@@ -31,5 +31,6 @@
         { "name": "Paid", "description": "Users with subscription" }
     ],
     "models": [{ "name": "Gemini" }, { "name": "ChatGPT" }, { "name": "Midjourney" }],
-    "categories": [{ "name": "Writing" }, { "name": "SEO" }, { "name": "Marketing" }, { "name": "Youtube" }, { "name": "Twitter" }, { "name": "Facebook" }, { "name": "Instagram" }]
+    "categories": [{ "name": "Writing" }, { "name": "SEO" }, { "name": "Marketing" }, { "name": "Youtube" }, { "name": "Twitter" }, { "name": "Facebook" }, { "name": "Instagram" }],
+    "chatbots": [{ "name": "SEO Specialist", "description": "SEO Specialist is a chatbot that helps you with SEO related queries.", "url": "seo", "accuracy": "8.7", "access": "Free" }]
 }

@@ -12,6 +12,7 @@
     "@google/generative-ai": "^0.16.0",
     "@nextui-org/react": "^2.4.6",
     "framer-motion": "^11.3.17",
+    "markdown-it": "^14.1.0",
     "next": "14.2.5",
     "node-appwrite": "^13.0.0",
     "react": "^18",
@@ -20,6 +21,7 @@
     "stripe": "^16.5.0"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
