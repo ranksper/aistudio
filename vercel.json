@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "src/app/chatbots/**/*": {
+            "maxDuration": 60
+        }
+    }
+}
