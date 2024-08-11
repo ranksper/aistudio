@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import "@/styles/globals.css";
 
 import Navigation from "@/components/Navigation/Navigation";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
     title: "Ranksper AI Studio",
@@ -27,7 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`h-screen bg-white dark:bg-slate-900 ${inter.className}`}>
                 <Providers>
                     <Navigation />
-                    <main className="mx-auto flex h-full w-full max-w-screen-2xl grow flex-col">{children}</main>
+                    <main className="mx-auto flex w-full max-w-screen-2xl grow basis-full flex-col">{children}</main>
+                    <Footer />
                     <Toaster richColors theme="system" toastOptions={{ className: "shadow" }} />
                 </Providers>
             </body>

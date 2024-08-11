@@ -69,3 +69,17 @@ export async function getPromptsByStatus(status: string, limit: number, offset?:
         return { total: 0, result: [] };
     }
 }
+
+export async function getPromptsByCategory(category: string, limit: number, offset?: number): Promise<PromptList> {
+    const { databases } = await createSessionClient();
+
+    try {
+        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"]), Query.contains("categories", [category])]);
+        const result = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), Query.contains("categories", [category])]);
+
+        return { total: count.total, result: result.documents };
+    } catch (error) {
+        console.error(error);
+        return { total: 0, result: [] };
+    }
+}

@@ -9,6 +9,7 @@ type AuthContextState = {
     loading: boolean;
     error: string | null;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentUser: () => Promise<void>;
     signUp: (user: SignUp) => Promise<void>;
     signIn: (user: SignIn) => Promise<void>;
     signOut: () => Promise<void>;
@@ -19,6 +20,7 @@ const initialState: AuthContextState = {
     loading: false,
     error: null,
     setLoading: async () => {},
+    setCurrentUser: async () => {},
     signUp: async () => {},
     signIn: async () => {},
     signOut: async () => {},
@@ -122,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCurrentUser();
     }, []);
 
-    return <AuthContext.Provider value={{ user, loading, error, setLoading, signUp, signIn, signOut }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, loading, error, setLoading, setCurrentUser, signUp, signIn, signOut }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuthContext = () => useContext(AuthContext);

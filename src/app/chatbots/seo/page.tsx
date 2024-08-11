@@ -1,11 +1,14 @@
 "use client";
 
 import { Textarea, Button, Divider, Card, CardHeader, CardBody, CardFooter, Chip, Skeleton } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import markdownIt from "markdown-it";
 
 import { runSEOChat } from "@/lib/gemini/chatbots/seo";
 import { Chats } from "@/types/gemini";
+import PromptsModal from "@/components/Modal/Prompts";
+
+import SendIcon from "@/components/Icons/Send";
 
 const SEOChatBotPage = () => {
     const [message, setMessage] = useState<string>("");
@@ -15,21 +18,23 @@ const SEOChatBotPage = () => {
     const md = new markdownIt();
 
     const handleSendMessage = async (message: string) => {
-        setMessage("");
-        setHistory((prev) => [...prev, { role: "user", parts: [{ text: message }] }]);
-        setLoading(true);
+        if (message.length > 0) {
+            setMessage("");
+            setHistory((prev) => [...prev, { role: "user", parts: [{ text: message }] }]);
+            setLoading(true);
 
-        const response = await runSEOChat(message, history);
+            const response = await runSEOChat(message, history);
 
-        if (response === null) {
-            const error = "I got error while processing your request. Please try again later";
-            setHistory((prev) => [...prev, { role: "model", parts: [{ text: error }] }]);
+            if (response === null) {
+                const error = "I got error while processing your request. Please try again later";
+                setHistory((prev) => [...prev, { role: "model", parts: [{ text: error }] }]);
+                setLoading(false);
+                return;
+            }
+
+            setHistory((prev) => [...prev, { role: "model", parts: [{ text: response }] }]);
             setLoading(false);
-            return;
         }
-
-        setHistory((prev) => [...prev, { role: "model", parts: [{ text: response }] }]);
-        setLoading(false);
     };
 
     const handleEnterPress = (event: React.KeyboardEvent) => {
@@ -46,7 +51,7 @@ const SEOChatBotPage = () => {
                 <Chip color="primary">SEO Model</Chip>
             </CardHeader>
             <Divider />
-            <CardBody className="h-full gap-3 overflow-y-auto">
+            <CardBody className="h-full shrink gap-3 overflow-y-auto">
                 {history.map((chat, index) => (
                     <div key={index} className="flex flex-col gap-2">
                         {chat.role === "user" ? (
@@ -54,14 +59,14 @@ const SEOChatBotPage = () => {
                                 <Chip color="success" variant="flat">
                                     You
                                 </Chip>
-                                <div className="flex flex-col gap-3 rounded-xl bg-default-100 p-2" dangerouslySetInnerHTML={{ __html: md.render(chat.parts[0].text) }} />
+                                <div className="result flex flex-col gap-3 rounded-xl bg-default-100 p-2" dangerouslySetInnerHTML={{ __html: md.render(chat.parts[0].text) }} />
                             </div>
                         ) : (
                             <div className="mr-auto flex w-2/3 flex-col items-start gap-2">
                                 <Chip color="primary" variant="flat">
                                     Ranksper AI
                                 </Chip>
-                                <div className="flex flex-col gap-3 rounded-xl bg-default-100 p-2" dangerouslySetInnerHTML={{ __html: md.render(chat.parts[0].text) }} />
+                                <div className="result flex flex-col gap-3 rounded-xl bg-default-100 p-2" dangerouslySetInnerHTML={{ __html: md.render(chat.parts[0].text) }} />
                             </div>
                         )}
                     </div>
@@ -78,11 +83,12 @@ const SEOChatBotPage = () => {
                 )}
             </CardBody>
             <Divider />
-            <CardFooter>
+            <CardFooter className="shrink-0 grow">
                 <div className="flex w-full items-end gap-3">
-                    <Textarea placeholder="Ask something..." minRows={1} value={message} onValueChange={setMessage} onKeyDown={handleEnterPress} />
-                    <Button color="primary" onPress={() => handleSendMessage(message)}>
-                        Send
+                    <Textarea classNames={{ base: "grow" }} placeholder="Ask something..." minRows={1} value={message} onValueChange={setMessage} onKeyDown={handleEnterPress} isDisabled={loading} />
+                    <PromptsModal title="SEO Prompts" category="SEO" setMessage={setMessage} />
+                    <Button color="primary" onPress={() => handleSendMessage(message)} isDisabled={loading} isIconOnly>
+                        <SendIcon size={22} />
                     </Button>
                 </div>
             </CardFooter>

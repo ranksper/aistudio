@@ -5,3 +5,52 @@
 .h-auto {
     height: auto !important;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f3f4f6;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e5e7eb;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #374151;
+}
+
+.result h2 {
+    font-size: 24px;
+}
+
+.result h3 {
+    font-size: 20px;
+}
+
+.result h4 {
+    font-size: 18px;
+}
+
+.result p {
+    font-size: 16px;
+}
+
+.result ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding: 0 0 0 1.5rem;
+}

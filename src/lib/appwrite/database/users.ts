@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { Query } from "node-appwrite";
 
 import { createSessionClient } from "@/lib/appwrite/config";
-import { CreateUser } from "@/types/user";
+import { CreateUser, SaveUser } from "@/types/user";
 
 const databaseId = process.env.NEXT_APPWRITE_DATABASE as string;
 const collectionId = process.env.NEXT_APPWRITE_USERS as string;
@@ -20,6 +20,29 @@ export async function createUser(data: CreateUser) {
         });
     } catch (error) {
         return error;
+    }
+}
+
+export async function updateUser(data: SaveUser) {
+    const { account, databases } = await createSessionClient();
+
+    try {
+        const update = {} as SaveUser;
+
+        if (data?.email) update.email = data.email;
+        if (data?.name) update.name = data.name;
+        if (data?.username) update.username = data.username;
+
+        const user = await databases.updateDocument(databaseId, collectionId, data.userId, update);
+
+        if (user) {
+            if (data?.name) await account.updateName(data.name);
+            if (data?.username) await updateUserPrefs(data.userId);
+        }
+
+        return user;
+    } catch (error) {
+        return null;
     }
 }
 
