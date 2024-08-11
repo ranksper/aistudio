@@ -1,3 +1,4 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Button, Divider } from "@nextui-org/react";
 import { notFound } from "next/navigation";
 import { userAgent } from "next/server";
@@ -15,6 +16,20 @@ import FavoriteButton from "@/components/Buttons/Favorite";
 
 import CopyIcon from "@/components/Icons/Copy";
 import HeartIcon from "@/components/Icons/Heart";
+
+type Props = {
+    params: { id: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const id = params.id;
+    const data: Prompt | null = await getPrompt(id);
+
+    return {
+        title: `${data?.title}`,
+        description: `${data?.description}`,
+    };
+}
 
 const PromptContentPage = async ({ params }: { params: { id: string } }) => {
     const { id } = params;

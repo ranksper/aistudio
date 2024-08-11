@@ -1,9 +1,24 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import { Avatar, Card, CardBody, CardFooter, CardHeader, Chip, Divider } from "@nextui-org/react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { Prompt } from "@/types/prompt";
 import { getUserByUsername } from "@/lib/appwrite/database/users";
+
+type Props = {
+    params: { username: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const username = params.username;
+    const user = await getUserByUsername(username);
+
+    return {
+        title: `${user?.name} - Ranksper AI Studio`,
+        description: `Explore the public prompts created by ${user?.name}.`,
+    };
+}
 
 const AuthorPage = async ({ params }: { params: { username: string } }) => {
     const { username } = params;

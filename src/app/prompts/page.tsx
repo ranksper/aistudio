@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { Avatar, Card, CardBody, CardFooter, CardHeader, Chip, Divider } from "@nextui-org/react";
 import Link from "next/link";
 
 import { loadPrompts } from "@/lib/appwrite/database/prompts";
 import { PromptList, Prompt } from "@/types/prompt";
 import PaginationBar from "@/components/Pagination/PaginationBar";
+
+export const metadata: Metadata = {
+    title: "AI Prompts - Ranksper AI Studio",
+    description: "Explore the public AI prompts created by the community.",
+};
 
 const PromptsPage = async ({ searchParams }: { searchParams: { page: string } }) => {
     const limit = 12;

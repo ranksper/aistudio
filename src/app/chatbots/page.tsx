@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { Link, Card, CardHeader, CardBody, CardFooter, Avatar, Chip } from "@nextui-org/react";
 
 import Settings from "@/../../settings.json";
+
+export const metadata: Metadata = {
+    title: "AI Chatbots - Ranksper AI Studio",
+    description: "Explore the public AI chatbots created by the Ranksper.",
+};
 
 const ChatbotsPage = () => {
     return (
