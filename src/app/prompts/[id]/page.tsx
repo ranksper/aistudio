@@ -1,5 +1,5 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import { Card, CardHeader, CardBody, CardFooter, Avatar, Button, Divider } from "@nextui-org/react";
+import type { Metadata } from "next";
+import { Card, CardHeader, CardBody, CardFooter, Avatar, Button, Divider, Chip } from "@nextui-org/react";
 import { notFound } from "next/navigation";
 import { userAgent } from "next/server";
 import { headers } from "next/headers";
@@ -43,7 +43,7 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
     }
 
     const generateContent = () => {
-        if (data?.access === "premium") {
+        if (data?.access === "Paid") {
             if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot || data.user.$id === user?.$id || user?.prefs.role === "admin") {
                 return <p className="paywall text-base text-default-600 md:text-lg" dangerouslySetInnerHTML={{ __html: data.content.replace(/\n/g, "<br/>") }}></p>;
             } else {
@@ -70,7 +70,7 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
     };
 
     const generateButtons = () => {
-        if (data?.access === "premium") {
+        if (data?.access === "Paid") {
             if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot || data.user.$id === user?.$id || user?.prefs.role === "admin") {
                 return (
                     <CopyButton text={data.content} size="sm" color="primary" variant="flat" className="px-2">
@@ -113,13 +113,34 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
                         <p className="text-sm text-default-500 md:text-base">{data.description}</p>
                     </CardHeader>
                     <Divider />
-                    <CardBody>{generateContent()}</CardBody>
+                    <CardBody>
+                        {
+                            <>
+                                {generateContent()}
+                                <div className="mb-2 mt-4 flex gap-2">
+                                    {data.categories.map((category) => (
+                                        <Chip key={category} color="default" radius="sm" variant="flat" classNames={{ base: "text-default-600" }} startContent={<span className="mx-1 h-2 w-2 rounded-full bg-default"></span>}>
+                                            {category}
+                                        </Chip>
+                                    ))}
+                                </div>
+                            </>
+                        }
+                    </CardBody>
                     <Divider />
                     <CardFooter className="mt-1 gap-2">
                         {generateButtons()}
                         <FavoriteButton data={data} size="sm" color={"default"} variant="flat" className="px-2 text-default-700">
                             <HeartIcon size={18} /> Favorite
                         </FavoriteButton>
+
+                        <div className="ml-auto flex gap-2">
+                            {data.models.map((model) => (
+                                <Chip key={model} color="warning" radius="sm" variant="flat">
+                                    {model}
+                                </Chip>
+                            ))}
+                        </div>
                     </CardFooter>
                 </Card>
 
