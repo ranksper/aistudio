@@ -15,7 +15,7 @@ const ChatbotsPage = () => {
                 <h1 className="text-2xl font-bold uppercase text-slate-700 dark:text-slate-100">Meet Out AI Specialists</h1>
                 <p className="text-slate-500 dark:text-slate-300">Personalized Specialist with Highest Skills for Everything</p>
             </div>
-            <div className="h-full columns-1 md:columns-2 lg:columns-3">
+            <div className="grid h-full grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 {Settings.chatbots.map((chatbot, index) => (
                     <Link href={`/chatbots/${chatbot.url}`} key={index}>
                         <Card className="flex-row divide-x divide-divider border border-divider shadow-sm">

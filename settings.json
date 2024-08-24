@@ -32,5 +32,8 @@
     ],
     "models": [{ "name": "Gemini" }, { "name": "ChatGPT" }, { "name": "Midjourney" }],
     "categories": [{ "name": "Writing" }, { "name": "SEO" }, { "name": "Marketing" }, { "name": "Youtube" }, { "name": "Twitter" }, { "name": "Facebook" }, { "name": "Instagram" }],
-    "chatbots": [{ "name": "SEO Specialist", "description": "SEO Specialist is a chatbot that helps you with SEO related queries.", "url": "seo", "accuracy": "8.7", "access": "Free" }]
+    "chatbots": [
+        { "name": "SEO Specialist", "description": "SEO Specialist is a chatbot that helps you with SEO related queries.", "url": "seo", "accuracy": "8.7", "access": "Free" },
+        { "name": "Content Writer", "description": "Content Writer is a chatbot that helps you with content creation.", "url": "writer", "accuracy": "9.2", "access": "Free" }
+    ]
 }
