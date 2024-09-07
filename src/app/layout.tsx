@@ -34,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         gtag('config', 'G-JFSFMGCFKM');
                     `}
                 </Script>
+                <Script strategy="afterInteractive" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6218835352220487" crossOrigin="anonymous"></Script>
                 <link rel="manifest" href={"/assets/favicons/site.webmanifest"} />
             </head>
             <body className={`h-screen bg-white dark:bg-slate-900 ${inter.className}`}>

@@ -55,14 +55,14 @@ const WriterChatBotPage = () => {
                 {history.map((chat, index) => (
                     <div key={index} className="flex flex-col gap-2">
                         {chat.role === "user" ? (
-                            <div className="ml-auto flex w-2/3 flex-col items-end gap-2">
+                            <div className="ml-auto flex w-5/6 flex-col items-end gap-2 md:w-2/3">
                                 <Chip color="success" variant="flat">
                                     You
                                 </Chip>
                                 <div className="result flex flex-col gap-3 rounded-xl bg-default-100 p-2" dangerouslySetInnerHTML={{ __html: md.render(chat.parts[0].text) }} />
                             </div>
                         ) : (
-                            <div className="mr-auto flex w-2/3 flex-col items-start gap-2">
+                            <div className="mr-auto flex w-5/6 flex-col items-start gap-2 md:w-2/3">
                                 <Chip color="primary" variant="flat">
                                     Ranksper AI
                                 </Chip>
