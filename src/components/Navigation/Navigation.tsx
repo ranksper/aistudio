@@ -18,9 +18,10 @@ import FireIcon from "@/components/Icons/Fire";
 
 const Navigation = () => {
     const router = useRouter();
+    const { user, loading, signOut } = useAuthContext();
 
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const { user, loading, signOut } = useAuthContext();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const icons: { [key: string]: JSX.Element } = {
         flash: <FlashIcon className="fill-foreground/80 group-hover:fill-white" size={32} />,
@@ -99,7 +100,7 @@ const Navigation = () => {
                         <AccordionItem title={item.name}>
                             {item.submenu.map((subItem: any) => {
                                 return (
-                                    <Link key={subItem.name} href={subItem.url} className="w-full px-2 py-0.5 text-lg text-foreground/70">
+                                    <Link key={subItem.name} href={subItem.url} onPress={() => setIsMenuOpen(false)} className="w-full px-2 py-0.5 text-lg text-foreground/70">
                                         {subItem.name}
                                     </Link>
                                 );
@@ -126,6 +127,7 @@ const Navigation = () => {
                     <DropdownItem href={`/author/${user?.prefs?.username}`}>Profile</DropdownItem>
                     <DropdownItem href="/prompts/create">Create</DropdownItem>
                     <DropdownItem href="/admin">Admin</DropdownItem>
+                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
                     <DropdownItem onPress={() => signOut()} color="secondary">
                         Log Out
                     </DropdownItem>
@@ -154,7 +156,7 @@ const Navigation = () => {
     };
 
     return (
-        <Navbar maxWidth="2xl" className="border-divider bg-white dark:bg-slate-900" isBordered>
+        <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} maxWidth="2xl" className="border-divider bg-white dark:bg-slate-900" isBordered>
             <NavbarContent justify="start">
                 {/* Logo and brand name */}
                 <Link href="/">

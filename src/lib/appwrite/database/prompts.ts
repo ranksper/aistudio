@@ -56,12 +56,18 @@ export async function loadPrompts(limit: number, offset?: number): Promise<Promp
     }
 }
 
-export async function getPromptsByStatus(status: string, limit: number, offset?: number): Promise<PromptList> {
+export async function getPromptsByStatus(status: string, limit: number, offset?: number, author?: string): Promise<PromptList> {
     const { databases } = await createSessionClient();
 
     try {
-        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"]), Query.equal("status", status)]);
-        const result = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), Query.equal("status", status)]);
+        const filters = [Query.equal("status", status)];
+
+        if (author) {
+            filters.push(Query.equal("user", author));
+        }
+
+        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"]), ...filters]);
+        const result = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), ...filters]);
 
         return { total: count.total, result: result.documents };
     } catch (error) {

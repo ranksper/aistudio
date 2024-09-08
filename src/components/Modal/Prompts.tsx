@@ -64,9 +64,9 @@ const PromptsModal = ({ title, category, setMessage }: { title: string; category
                     <ModalHeader>{title}</ModalHeader>
                     <ModalBody>
                         {prompts.map((prompt, index) => (
-                            <Button key={index} onPress={() => insertPrompt(prompt)} variant="bordered" className="h-fit border border-divider p-2">
-                                <p>{prompt.title}</p>{" "}
-                                <Chip variant="flat" color={prompt.access === "Paid" ? "danger" : "success"} classNames={{ base: "ml-auto" }}>
+                            <Button key={index} onPress={() => insertPrompt(prompt)} color={prompt.access === "Paid" ? "danger" : "success"} variant="flat" className="h-fit justify-start p-2">
+                                <p className="w-full text-wrap text-left">{prompt.title}</p>{" "}
+                                <Chip variant="flat" color={prompt.access === "Paid" ? "danger" : "success"} classNames={{ base: "ml-auto hidden md:flex" }}>
                                     {prompt.access}
                                 </Chip>
                             </Button>

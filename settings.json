@@ -21,6 +21,17 @@
             ]
         }
     ],
+    "dashboardbar": [
+        {
+            "name": "Prompts",
+            "submenu": [
+                { "name": "Overview", "url": "/dashboard", "active": "overview" },
+                { "name": "Submissions", "url": "/dashboard/submissions", "active": "submissions" },
+                { "name": "Published", "url": "/dashboard/published", "active": "published" },
+                { "name": "Rejected", "url": "/dashboard/rejected", "active": "rejected" }
+            ]
+        }
+    ],
     "roles": [
         { "name": "admin", "description": "Admin has full access to the website." },
         { "name": "contributor", "description": "Editor has access to the content of the website." },
