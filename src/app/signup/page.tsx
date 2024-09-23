@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { Input, Button, Link } from "@nextui-org/react";
 
 import { useAuthContext } from "@/context/AuthContext";

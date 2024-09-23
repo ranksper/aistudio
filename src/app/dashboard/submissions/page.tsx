@@ -2,6 +2,7 @@
 
 import { Table, TableBody, TableCell, TableColumn, TableRow, TableHeader, Avatar, Button, Link, Spinner, Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "nextjs-toploader/app";
 import { toast } from "sonner";
 import { useAuthContext } from "@/context/AuthContext";
 
@@ -11,6 +12,7 @@ import { getPromptsByStatus, updatePrompt } from "@/lib/appwrite/database/prompt
 
 const DashboardSubmissionPage = () => {
     const { user } = useAuthContext();
+    const router = useRouter();
 
     const [data, setData] = useState<Prompt[]>([]);
     const [loading, setLoading] = useState(true);
@@ -53,6 +55,9 @@ const DashboardSubmissionPage = () => {
                     </TableCell>
                     <TableCell>{new Date(prompt.$updatedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "2-digit" })}</TableCell>
                     <TableCell>
+                        <Button size="sm" color="primary" variant="flat" className="mx-1 px-2" onPress={() => router.push(`/prompts/editor/${prompt.$id}`)}>
+                            Edit
+                        </Button>
                         <Button size="sm" color="danger" variant="flat" className="mx-1 px-2" onPress={() => handleReject(prompt.$id)}>
                             Delete
                         </Button>

@@ -2,7 +2,7 @@
 
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useAuthContext } from "@/context/AuthContext";
 import Link from "next/link";
 

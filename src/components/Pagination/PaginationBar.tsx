@@ -1,7 +1,8 @@
 "use client";
 
 import { Pagination } from "@nextui-org/react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 const PaginationBar = ({ total }: { total: number }) => {
     const router = useRouter();

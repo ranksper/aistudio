@@ -2,7 +2,7 @@
 
 import { Button, Chip, Input, Spinner, Tab, Tabs } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { toast } from "sonner";
 import Link from "next/link";
 
