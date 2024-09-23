@@ -3,7 +3,7 @@
 import { Button, Link, Avatar, Divider, Spinner, Navbar, NavbarBrand, NavbarMenu, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenuItem, Accordion, AccordionItem, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useAuthContext } from "@/context/AuthContext";
 
 import Settings from "@/../../settings.json";
@@ -72,7 +72,7 @@ const Navigation = () => {
                         <DropdownMenu aria-label="features" classNames={{ list: "w-fit max-w-80" }} itemClasses={{ base: "gap-4" }}>
                             {item.submenu.map((subItem: any) => {
                                 return (
-                                    <DropdownItem key={subItem.name} as={Link} href={subItem.url} description={subItem.description} startContent={<div className="rounded-xl border border-divider p-1.5 transition-all group-hover:border-primary group-hover:bg-primary">{icons[subItem.icon]}</div>} variant="light" className="group text-foreground data-[hover=true]:text-foreground">
+                                    <DropdownItem key={subItem.name} onPress={() => router.push(`${subItem.url}`)} description={subItem.description} startContent={<div className="rounded-xl border border-divider p-1.5 transition-all group-hover:border-primary group-hover:bg-primary">{icons[subItem.icon]}</div>} variant="light" className="group text-foreground data-[hover=true]:text-foreground">
                                         {subItem.name}
                                     </DropdownItem>
                                 );
@@ -111,7 +111,7 @@ const Navigation = () => {
             } else {
                 return (
                     <NavbarMenuItem key={item.name}>
-                        <Link color="foreground" href={item.url} className="w-full py-3 text-xl text-foreground">
+                        <Link color="foreground" href={item.url} onPress={() => setIsMenuOpen(false)} className="w-full py-3 text-xl text-foreground">
                             {item.name}
                         </Link>
                     </NavbarMenuItem>
@@ -124,10 +124,10 @@ const Navigation = () => {
         if (role === Settings.roles[0].name) {
             return (
                 <DropdownSection className="m-0">
-                    <DropdownItem href={`/author/${user?.prefs?.username}`}>Profile</DropdownItem>
-                    <DropdownItem href="/prompts/create">Create</DropdownItem>
-                    <DropdownItem href="/admin">Admin</DropdownItem>
-                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/author/${user?.prefs?.username}`)}>Profile</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/prompts/create`)}>Create</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/admin`)}>Admin</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/dashboard`)}>Dashboard</DropdownItem>
                     <DropdownItem onPress={() => signOut()} color="secondary">
                         Log Out
                     </DropdownItem>
@@ -136,9 +136,9 @@ const Navigation = () => {
         } else if (role === Settings.roles[1].name) {
             return (
                 <DropdownSection className="m-0">
-                    <DropdownItem href={`/author/${user?.prefs?.username}`}>Profile</DropdownItem>
-                    <DropdownItem href="/prompts/create">Create</DropdownItem>
-                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/author/${user?.prefs?.username}`)}>Profile</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/prompts/create`)}>Create</DropdownItem>
+                    <DropdownItem onPress={() => router.push(`/dashboard`)}>Dashboard</DropdownItem>
                     <DropdownItem onPress={() => signOut()} color="secondary">
                         Log Out
                     </DropdownItem>
@@ -192,7 +192,7 @@ const Navigation = () => {
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Profile Actions" variant="flat">
                                 <DropdownSection showDivider>
-                                    <DropdownItem as={Link} className="h-14" href="/account" aria-label="Profile Name">
+                                    <DropdownItem className="h-14" onPress={() => router.push("/account")} aria-label="Profile Name">
                                         <div className="flex items-center gap-3">
                                             <div>
                                                 <Avatar as="button" className="transition-transform" name={user?.name} color="primary" />

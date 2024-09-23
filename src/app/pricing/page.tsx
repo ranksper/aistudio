@@ -14,14 +14,14 @@ const PricingPage = () => {
     return (
         <>
             <div className="p-10">
-                <div className="overflow-hidden rounded-2xl bg-[#dbeafe] py-10">
+                <div className="overflow-hidden rounded-2xl bg-[#dbeafe] px-5 py-10">
                     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
                     <stripe-pricing-table className="overflow-hidden rounded" pricing-table-id="prctbl_1OUjW6SBw7CFN4Fg3PV96Thl" publishable-key="pk_live_51OIUWISBw7CFN4FgLKl2xJ2h3ckJojgaWW05kXdTB466DRDh8n7WiUeKCv0wBxIPuR1zWNZPlYrlCaiZ7Sikd1LA00cQco8HA9"></stripe-pricing-table>
                 </div>
             </div>
 
             <h2 className="my-10 text-center text-3xl font-bold text-default-800">Frequently Asked Questions</h2>
-            <div className="mx-auto w-full max-w-3xl relative">
+            <div className="relative mx-auto w-full max-w-3xl px-5 md:p-0">
                 <Accordion variant="bordered" className="border border-divider">
                     <AccordionItem key="1" title="Can I request a refund?" aria-label="Can I request a refund?" classNames={{ content: "mb-2" }}>
                         {"If you are not satisfied with our service, you can request a refund to customer support within 15 days of your purchase. We will refund your money without any questions asked. Currently we give refund only in annual plan. Keep in mind that when we refund your money, a portion of the price usually 3% is deducted due to the transition fee provided to our third party service provider."}
