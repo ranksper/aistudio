@@ -38,6 +38,18 @@ const HomePage = () => {
             content: "This AI platform is a must-have for e-commerce. The chatbots have improved our customer response times, and the AI content tools are super handy. A solid investment!",
             stars: 5,
         },
+        {
+            name: "Laura K.",
+            title: "Project Manager",
+            content: "The AI tools on this platform have streamlined our project workflows. The chatbots are efficient and the prompt templates save us a lot of time. Highly recommended!",
+            stars: 5,
+        },
+        {
+            name: "Tom H.",
+            title: "SEO Specialist",
+            content: "Ranksper AI Studio has been a fantastic addition to our toolkit. The AI-driven insights and chatbots have significantly boosted our SEO efforts. A must-have for any digital marketer!",
+            stars: 5,
+        },
     ];
 
     const colors = ["primary", "secondary", "success", "warning", "danger"];
@@ -65,26 +77,26 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div className="mt-20 w-full columns-1 gap-4 p-2 lg:columns-2 xl:columns-3 [&>div:not(:first-child)]:mt-4">
-                {reviews.map((review, index) => (
-                    <Card key={index} className="border border-divider shadow-sm">
-                        <CardHeader className="gap-3">
-                            <Avatar name={review.name} alt={review.name} color={colors[Math.floor(Math.random() * colors.length)] as "primary" | "secondary" | "success" | "warning" | "danger" | "default"} />
-                            <div className="flex flex-col">
-                                <p className="text-md">{review.name}</p>
-                                <p className="text-small text-default-500">{review.title}</p>
-                            </div>
-                        </CardHeader>
-                        <Divider />
-                        <CardBody>
-                            <p>{review.content}</p>
-                        </CardBody>
-                        <Divider />
-                        <CardFooter>
-                            <div className="flex gap-1">{[...Array(review.stars)].map((_, index) => "⭐")}</div>
-                        </CardFooter>
-                    </Card>
-                ))}
+            <div className="mt-20">
+                <h2 className="text-center text-2xl font-black text-primary-500 md:text-4xl">Reviews From Our Users</h2>
+                <p className="mt-2 text-center text-medium text-slate-400 md:text-lg">Your opinion matters to us</p>
+                <div className="mt-8 w-full columns-1 gap-4 p-2 md:columns-2 lg:columns-3 xl:columns-4 [&>div:not(:first-child)]:mt-4">
+                    {reviews.map((review, index) => (
+                        <Card key={index} className="border border-divider shadow-sm">
+                            <CardHeader>
+                                <p>{review.content}</p>
+                            </CardHeader>
+                            <Divider />
+                            <CardBody className="flex-row gap-3">
+                                <Avatar name={review.name} alt={review.name} color={colors[Math.floor(Math.random() * colors.length)] as "primary" | "secondary" | "success" | "warning" | "danger" | "default"} />
+                                <div className="flex flex-col">
+                                    <p className="text-md">{review.name}</p>
+                                    <p className="text-small text-default-500">{review.title}</p>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    ))}
+                </div>
             </div>
         </div>
     );

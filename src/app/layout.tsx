@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="icon" type="image/png" sizes="16x16" href={"/assets/favicons/favicon-16x16.png"} />
                 <link rel="manifest" href={"/assets/favicons/site.webmanifest"} />
 
-                {/* <Script id="google-tagmanager" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-JFSFMGCFKM" />
+                <Script id="google-tagmanager" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-JFSFMGCFKM" />
                 <Script id="google-analytics" strategy="afterInteractive">
                     {`
                         window.dataLayer = window.dataLayer || [];
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         gtag('config', 'G-JFSFMGCFKM');
                     `}
                 </Script>
-                <Script strategy="afterInteractive" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6218835352220487" crossOrigin="anonymous"></Script> */}
+                <Script strategy="afterInteractive" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6218835352220487" crossOrigin="anonymous"></Script>
             </head>
             <body className={`h-screen bg-white dark:bg-slate-900 ${inter.className}`}>
                 <Providers>
