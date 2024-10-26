@@ -72,7 +72,7 @@ const PromptsModal = ({ title, category, setMessage }: { title: string; category
                             </Button>
                         ))}
                     </ModalBody>
-                    <ModalFooter className={`${prompts.length > 10 ? "" : "hidden"}`}>
+                    <ModalFooter>
                         <Pagination classNames={{ base: "mx-auto" }} total={Math.ceil(total / 10)} page={page} onChange={setPage} />
                     </ModalFooter>
                 </ModalContent>

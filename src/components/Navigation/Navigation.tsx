@@ -231,7 +231,7 @@ const Navigation = () => {
             </NavbarContent>
 
             {/* Mobile navigation menu */}
-            <NavbarMenu className="gap-0 divide-y divide-default overflow-hidden border-t border-divider bg-[#0c131a]/70 pt-2">{generateMobileNavItems(Settings.navigation)}</NavbarMenu>
+            <NavbarMenu className="gap-0 divide-y divide-default overflow-hidden border-t border-divider bg-white/70 pt-2 dark:bg-[#0c131a]/70">{generateMobileNavItems(Settings.navigation)}</NavbarMenu>
         </Navbar>
     );
 };
