@@ -79,7 +79,7 @@ const AdminSubmissionPage = () => {
     return (
         <div className="m-4 flex flex-col gap-6 md:m-10 md:flex-row">
             <AdminBar active="submissions" />
-            <Table aria-label="submissions" classNames={{ wrapper: "border border-divider shadow-sm", thead: "[&>tr]:first:shadow-none", th: "dark:bg-slate-700", td: "whitespace-nowrap" }} bottomContent={data.length >= 1 && <Pagination size="sm" classNames={{ base: "mx-auto" }} page={page} onChange={setPage} total={Math.ceil(total / limit)} loop showControls />}>
+            <Table aria-label="submissions" classNames={{ wrapper: "border border-divider shadow-sm", thead: "[&>tr]:first:shadow-none", td: "whitespace-nowrap" }} bottomContent={data.length >= 1 && <Pagination size="sm" classNames={{ base: "mx-auto" }} page={page} onChange={setPage} total={Math.ceil(total / limit)} loop showControls />}>
                 <TableHeader>
                     <TableColumn>Title</TableColumn>
                     <TableColumn>User</TableColumn>

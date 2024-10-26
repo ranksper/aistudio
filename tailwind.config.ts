@@ -16,10 +16,20 @@ const config: Config = {
                     colors: {
                         default: {
                             DEFAULT: "#374151",
-                            100: "#1e293b",
-                            200: "#334155",
+                            100: "#1f262d",
+                            200: "#232b33",
                         },
-                        content1: "#1f2937",
+                        content1: "#101820",
+                    },
+                },
+                light: {
+                    colors: {
+                        default: {
+                            DEFAULT: "#f1f2f4",
+                            100: "#eceef0",
+                            200: "#e8eaed",
+                        },
+                        content1: "#f9fafb",
                     },
                 },
             },

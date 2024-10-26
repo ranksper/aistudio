@@ -45,7 +45,7 @@ const WriterChatBotPage = () => {
     };
 
     return (
-        <Card className="m-5 h-[calc(100dvh-105px)] border border-divider shadow-sm dark:bg-gray-900">
+        <Card className="m-5 h-[calc(100dvh-105px)] border border-divider shadow-sm">
             <CardHeader className="gap-3 px-4">
                 <h2 className="font-medium text-slate-700 dark:text-slate-300">Ranksper AI</h2>
                 <Chip color="primary">Content Writer Model</Chip>

@@ -21,7 +21,7 @@ const AdminBar = ({ active }: { active: string }) => {
     const renderPromptsMenu = () => {
         return Settings.adminbar[0].submenu.map((item) => {
             return (
-                <Button key={item.name} as={Link} href={active !== item.active ? item.url : ""} color={active === item.active ? "primary" : "default"} className={`${active !== item.active ? "bg-default-100 dark:bg-slate-700" : ""}`}>
+                <Button key={item.name} as={Link} href={active !== item.active ? item.url : ""} color={active === item.active ? "primary" : "default"} className={`${active !== item.active ? "bg-default-100" : ""}`}>
                     {item.name}
                 </Button>
             );

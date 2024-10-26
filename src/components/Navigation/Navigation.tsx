@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "nextjs-toploader/app";
 import { useAuthContext } from "@/context/AuthContext";
 
+import SearchModal from "../Modal/Search";
 import Settings from "@/../../settings.json";
 
 import LogoIcon from "@/components/Icons/Logo";
@@ -61,10 +62,10 @@ const Navigation = () => {
         return NavItems.map((item: any) => {
             if (item.submenu) {
                 return (
-                    <Dropdown key={item.name} className="mt-5 border border-divider bg-white shadow-sm dark:bg-slate-900">
+                    <Dropdown key={item.name} className="mt-5 border border-divider bg-white shadow-sm dark:bg-[#0c131a]">
                         <NavbarItem>
                             <DropdownTrigger>
-                                <Button disableRipple variant="light" endContent={<ChevronIcon size={16} />} className="text-md duration-00 h-fit cursor-pointer rounded-lg px-3 py-1 text-foreground transition-colors ease-linear">
+                                <Button disableRipple variant="light" endContent={<ChevronIcon size={16} />} className="text-md duration-00 h-fit cursor-pointer rounded-lg px-3 py-1 text-foreground transition-colors ease-linear data-[hover=true]:bg-default-100 data-[hover=true]:opacity-80">
                                     {item.name}
                                 </Button>
                             </DropdownTrigger>
@@ -83,7 +84,7 @@ const Navigation = () => {
             } else {
                 return (
                     <NavbarItem key={item.name}>
-                        <Link color="foreground" href={item.url} className="duration-00 rounded-lg px-3 py-1 transition-colors ease-linear hover:bg-default/40">
+                        <Link color="foreground" href={item.url} className="duration-00 rounded-lg px-3 py-1 transition-colors ease-linear hover:bg-default-100">
                             {item.name}
                         </Link>
                     </NavbarItem>
@@ -156,7 +157,7 @@ const Navigation = () => {
     };
 
     return (
-        <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} maxWidth="2xl" className="border-divider bg-white dark:bg-slate-900" isBordered>
+        <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} maxWidth="2xl" className="border-divider bg-white dark:bg-[#0c131a]" isBordered>
             <NavbarContent justify="start">
                 {/* Logo and brand name */}
                 <Link href="/">
@@ -174,10 +175,15 @@ const Navigation = () => {
                 {/* Mobile menu toggle */}
                 <NavbarMenuToggle className="md:hidden" />
 
-                {/* Theme toggle button */}
-                <Button isIconOnly onPress={toggleTheme} variant="light" radius="lg" className="text-default-700 dark:text-slate-400">
-                    {isDarkMode ? <SunIcon /> : <MoonIcon />}
-                </Button>
+                <div className="flex gap-1">
+                    {/* Search button */}
+                    <SearchModal />
+
+                    {/* Theme toggle button */}
+                    <Button isIconOnly onPress={toggleTheme} variant="light" radius="lg" className="text-default-700 dark:text-slate-400">
+                        {isDarkMode ? <SunIcon /> : <MoonIcon />}
+                    </Button>
+                </div>
 
                 <Divider orientation="vertical" className="mr-2 h-8" />
 
@@ -186,7 +192,7 @@ const Navigation = () => {
                     <Spinner />
                 ) : user ? (
                     <>
-                        <Dropdown placement="bottom-end" className="mt-5 border border-divider bg-white shadow-sm dark:bg-slate-900">
+                        <Dropdown placement="bottom-end" className="mt-5 border border-divider bg-white shadow-sm dark:bg-[#0c131a]">
                             <DropdownTrigger>
                                 <Avatar as="button" className="transition-transform" name={user?.name} size="sm" color="primary" />
                             </DropdownTrigger>
@@ -211,12 +217,12 @@ const Navigation = () => {
                 ) : (
                     <>
                         <NavbarItem>
-                            <Button onPress={() => router.push("/signin")} color="primary" size="sm" variant="flat">
+                            <Button onPress={() => router.push("/signin")} size="sm" className="">
                                 Login
                             </Button>
                         </NavbarItem>
                         <NavbarItem>
-                            <Button onPress={() => router.push("/signup")} color="primary" size="sm" variant="solid">
+                            <Button onPress={() => router.push("/signup")} size="sm" color="primary">
                                 Sign Up
                             </Button>
                         </NavbarItem>
@@ -225,7 +231,7 @@ const Navigation = () => {
             </NavbarContent>
 
             {/* Mobile navigation menu */}
-            <NavbarMenu className="gap-0 divide-y divide-default overflow-hidden border-t border-divider pt-2">{generateMobileNavItems(Settings.navigation)}</NavbarMenu>
+            <NavbarMenu className="gap-0 divide-y divide-default overflow-hidden border-t border-divider bg-[#0c131a]/70 pt-2">{generateMobileNavItems(Settings.navigation)}</NavbarMenu>
         </Navbar>
     );
 };

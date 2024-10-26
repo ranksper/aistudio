@@ -73,7 +73,7 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
         if (data?.access === "Paid") {
             if ((subscription !== null && subscription.plan.product === process.env.NEXT_STRIPE_PREMIUM_PASS_ID) || agent.isBot || data.user.$id === user?.$id || user?.prefs.role === "admin") {
                 return (
-                    <CopyButton text={data.content} size="sm" color="primary" variant="flat" className="px-2">
+                    <CopyButton text={data.content} size="sm" className="bg-default-100 px-2 text-default-600">
                         <CopyIcon size={18} /> Copy
                     </CopyButton>
                 );
@@ -83,7 +83,7 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
         } else {
             return (
                 data && (
-                    <CopyButton text={data.content} size="sm" color="default" variant="flat" className="px-2 text-default-700">
+                    <CopyButton text={data.content} size="sm" className="bg-default-100 px-2 text-default-600">
                         <CopyIcon size={18} /> Copy
                     </CopyButton>
                 )
@@ -119,7 +119,7 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
                                 {generateContent()}
                                 <div className="mb-2 mt-4 flex gap-2">
                                     {data.categories.map((category) => (
-                                        <Chip key={category} color="default" radius="sm" variant="flat" classNames={{ base: "text-default-600" }} startContent={<span className="mx-1 h-2 w-2 rounded-full bg-default"></span>}>
+                                        <Chip key={category} radius="sm" classNames={{ base: "text-default-600 bg-default-100" }} startContent={<span className="mx-1 h-2 w-2 rounded-full bg-default-300"></span>}>
                                             {category}
                                         </Chip>
                                     ))}
@@ -130,13 +130,13 @@ const PromptContentPage = async ({ params }: { params: { id: string } }) => {
                     <Divider />
                     <CardFooter className="mt-1 gap-2">
                         {generateButtons()}
-                        <FavoriteButton data={data} size="sm" color={"default"} variant="flat" className="px-2 text-default-700">
+                        <FavoriteButton data={data} size="sm" className="bg-default-100 px-2 text-default-600">
                             <HeartIcon size={18} /> Favorite
                         </FavoriteButton>
 
                         <div className="ml-auto flex gap-2">
                             {data.models.map((model) => (
-                                <Chip key={model} color="warning" radius="sm" variant="flat">
+                                <Chip key={model} color="secondary" radius="sm" variant="flat">
                                     {model}
                                 </Chip>
                             ))}

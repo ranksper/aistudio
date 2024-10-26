@@ -41,7 +41,7 @@ const AuthorPage = async ({ params }: { params: { username: string } }) => {
                     </div>
                 </CardHeader>
                 <CardBody className="flex columns-3 flex-row flex-wrap justify-center gap-3 lg:columns-2">
-                    <Chip color="default" variant="flat" className="h-fit rounded-xl px-4 py-1.5">
+                    <Chip color="default" className="h-fit rounded-xl px-4 py-1.5">
                         <p className="text-center text-medium">Prompts</p>
                         <p className="text-center text-lg font-semibold">{result.prompts.length}</p>
                     </Chip>
@@ -54,7 +54,7 @@ const AuthorPage = async ({ params }: { params: { username: string } }) => {
                 <div className="mb-8 w-full columns-1 gap-4 lg:columns-2 xl:columns-3 [&>div:not(:first-child)]:mt-4">
                     {result &&
                         prompts.map((prompt: Prompt) => (
-                            <Card key={prompt.$id} className="rounded-xl border border-divider bg-slate-50 shadow-sm dark:bg-content1">
+                            <Card key={prompt.$id} className="rounded-xl border border-divider shadow-sm">
                                 <CardHeader className="gap-2">
                                     <Avatar name={result.name} alt={result.name} size="sm" />
                                     <p>{result.name}</p>

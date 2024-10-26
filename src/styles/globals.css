@@ -17,20 +17,20 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #f3f4f6;
+    background: #d1d5db;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #e5e7eb;
+    background: #b5b9be;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #1f2937;
+    background: #383f46;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #374151;
+    background: #4e545b;
 }
 
 .result h2 {

@@ -89,3 +89,18 @@ export async function getPromptsByCategory(category: string, limit: number, offs
         return { total: 0, result: [] };
     }
 }
+
+// Create a search function for prompts that takes text as a argument and search for that text in prompt title and description
+export async function searchPrompts(text: string, limit: number, offset?: number): Promise<PromptList> {
+    const { databases } = await createSessionClient();
+
+    try {
+        const count = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(1), Query.select(["$id"]), Query.search("title", text)]);
+        const results = await databases.listDocuments<Prompt>(databaseId, collectionId, [Query.limit(limit), Query.offset(offset || 0), Query.search("title", text), Query.limit(10)]);
+
+        return { total: results.total, result: results.documents };
+    } catch (error) {
+        console.error(error);
+        return { total: 0, result: [] };
+    }
+}
