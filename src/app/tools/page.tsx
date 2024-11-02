@@ -4,20 +4,20 @@ import { Link, Card, CardHeader, CardBody, CardFooter, Avatar, Chip } from "@nex
 import Settings from "@/../../settings.json";
 
 export const metadata: Metadata = {
-    title: "AI Chatbots - Ranksper AI Studio",
-    description: "Explore the public AI chatbots created by the Ranksper.",
+    title: "AI Tools - Ranksper AI Studio",
+    description: "Explore the advanced AI tools created by the Ranksper.",
 };
 
 const ChatbotsPage = () => {
     return (
         <div className="flex flex-col gap-10 p-5">
             <div className="flex flex-col items-center justify-center py-5">
-                <h1 className="text-2xl font-bold uppercase text-slate-700 dark:text-slate-100">Meet Our AI Specialists</h1>
-                <p className="text-slate-500 dark:text-slate-300">Personalized Specialist with Highest Skills for Everything</p>
+                <h1 className="text-2xl font-bold uppercase text-slate-700 dark:text-slate-100">Meet Our AI Tools</h1>
+                <p className="text-slate-500 dark:text-slate-300">Advanced AI Tools will Automate Your Tasks in Seconds</p>
             </div>
             <div className="grid h-full grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                {Settings.chatbots.map((chatbot, index) => (
-                    <Link href={`/chatbots/${chatbot.url}`} key={index}>
+                {Settings.tools.map((chatbot, index) => (
+                    <Link href={`/tools/${chatbot.url}`} key={index}>
                         <Card className="flex-row divide-x divide-divider border border-divider shadow-sm">
                             <CardHeader className="hidden w-fit sm:flex">
                                 <Avatar color={chatbot.access === "Paid" ? "danger" : "success"} name={chatbot.name} alt={chatbot.name} size="lg" classNames={{ name: "font-semibold text-foreground" }} />

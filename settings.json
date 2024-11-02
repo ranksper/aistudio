@@ -7,7 +7,8 @@
             "name": "Features",
             "submenu": [
                 { "name": "Prompts", "url": "/prompts", "description": "Collection of prompts for best results", "icon": "server" },
-                { "name": "Chatbots", "url": "/chatbots", "description": "Specialized chatbots for content creation", "icon": "fire" }
+                { "name": "Chatbots", "url": "/chatbots", "description": "Specialized chatbots for content creation", "icon": "fire" },
+                { "name": "Tools", "url": "/tools", "description": "Advanced AI tools to automate your tasks", "icon": "flash" }
             ]
         }
     ],
@@ -46,5 +47,6 @@
     "chatbots": [
         { "name": "SEO Specialist", "description": "SEO Specialist is a chatbot that helps you with SEO related queries.", "url": "seo", "accuracy": "8.7", "access": "Free" },
         { "name": "Content Writer", "description": "Content Writer is a chatbot that helps you with content creation.", "url": "writer", "accuracy": "9.2", "access": "Free" }
-    ]
+    ],
+    "tools": [{ "name": "Prompt Generator", "description": "Prompt Generator is a tool that helps you with generating prompts.", "url": "prompt-generator", "accuracy": "9.1", "access": "Free" }]
 }

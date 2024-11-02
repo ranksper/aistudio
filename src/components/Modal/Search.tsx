@@ -39,7 +39,7 @@ const SearchModal = () => {
             <Button onClick={onOpen} className="bg-transparent" isIconOnly>
                 <SearchIcon className="text-default-700 dark:text-slate-400" size={20} />
             </Button>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="z-90" classNames={{ closeButton: "z-10 top-2 right-1.5" }} size="lg">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center" className="z-90" classNames={{ closeButton: "z-10 top-2 right-1.5" }} size="lg">
                 <ModalContent>
                     <ModalHeader className="border-b border-divider p-1">
                         <form onSubmit={handleSearch} className="w-full">
