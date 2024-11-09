@@ -2,6 +2,9 @@
     "functions": {
         "src/app/chatbots/**/*": {
             "maxDuration": 60
+        },
+        "src/app/tools/**/*": {
+            "maxDuration": 60
         }
     }
 }
